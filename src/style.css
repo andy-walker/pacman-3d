@@ -1,0 +1,295 @@
+/* Temporary styles for Pacman 3D */
+
+* { 
+    margin:0; 
+    padding:0;
+}
+
+body {
+    background:#000;
+}
+
+#game {
+    position:absolute;
+    width:1280px;
+    height:800px;    
+    left:50%;
+    top:50%;
+    background:url(images/bg3.jpg);
+    transform:translate(-50%, -50%);    
+    -webkit-transform:translate(-50%, -50%);
+    -moz-transform:translate(-50%, -50%);
+    -ms-transform:translate(-50%, -50%);
+}
+
+#game div { opacity:1; position:absolute; }
+
+.p  { position:absolute; z-index:200; }
+.pr { position:absolute; z-index:1; }
+.pm { position:absolute; z-index:300; display:none;}
+
+#pacman { 
+    position:absolute; 
+    z-index:300; 
+    background:url(images/pm256.png);
+    width: 0;
+    height: 0;
+}
+
+#g0 {
+    position:absolute; 
+    z-index:300; 
+    background:url(images/g0.png);
+    width: 0;
+    height: 0;    
+}
+
+#g1 {
+    position:absolute; 
+    z-index:300; 
+    background:url(images/g1.png);
+    width: 0;
+    height: 0;    
+}
+
+#g2 {
+    position:absolute; 
+    z-index:300; 
+    background:url(images/g2.png);
+    width: 0;
+    height: 0;    
+}
+
+#g3 {
+    position:absolute; 
+    z-index:300; 
+    background:url(images/g3.png);
+    width: 0;
+    height: 0;    
+}
+
+#w1 {
+    width:764px;
+    height:117px;
+    background:url(images/w0.png);
+    top:96px;
+    left:258px;
+    z-index:0;    
+}
+
+#w2 {
+    width:764px;
+    height:85px;
+    background:url(images/w0.png) 0 -117px;
+    top:213px;
+    left:258px;
+    z-index:30;    
+}
+
+#w3 {
+    width:84px;
+    height:47px;
+    background:url(images/w1.png);
+    top:122px;
+    left:365px;
+    z-index:10;
+}
+
+#w4 {
+    width:105px;
+    height:47px;
+    background:url(images/w2.png);
+    top:122px;
+    left:482px;
+    z-index:10;
+}
+
+#w5 {
+    width:105px;
+    height:47px;
+    background:url(images/w3.png);
+    top:122px;
+    left:693px;
+    z-index:10;
+}
+
+#w6 {
+    width:84px;
+    height:47px;
+    background:url(images/w4.png);
+    top:122px;
+    left:831px;
+    z-index:10;
+}
+
+#w7 {
+    width:84px;
+    height:37px;
+    background:url(images/w5.png);
+    top:172px;
+    left:352px;
+    z-index:20;
+}
+
+#w8 {
+    width:123px;
+    height:126px;
+    background:url(images/w6.png);
+    top:172px;
+    left:459px;
+    z-index:30;
+}
+
+#w9 {
+    width:182px;
+    height:80px;
+    background:url(images/w7.png);
+    top:172px;
+    left:549px;
+    z-index:20;
+}
+
+#w10 {
+    width:123px;
+    height:126px;
+    background:url(images/w8.png);
+    top:172px;
+    left:698px;
+    z-index:30;
+}
+
+#w11 {
+    width:84px;
+    height:37px;
+    background:url(images/w9.png);
+    top:172px;
+    left:843px;
+    z-index:20;
+}
+
+#w12 {
+    width:210px;
+    height:60px;
+    background:url(images/w10.png);
+    top:257px;
+    left:535px;
+    z-index:40;
+}
+
+#w13 {
+    width:210px;
+    height:33px;
+    background:url(images/w10.png) 0 -60px;
+    top:317px;
+    left:535px;
+    z-index:50;
+}
+
+#w14 {
+    width:51px;
+    height:101px;
+    background:url(images/w11.png);
+    top:306px;
+    left:440px;
+    z-index:50;
+}
+
+#w15 {
+    width:51px;
+    height:101px;
+    background:url(images/w12.png);
+    top:306px;
+    left:789px;
+    z-index:50;
+}
+
+#w16 {
+    width:222px;
+    height:110px;
+    background:url(images/w13.png);
+    top:361px;
+    left:528px;
+    z-index:60;
+}
+
+#w17 {
+    width:109px;
+    height:121px;
+    background:url(images/w14.png);
+    top:422px;
+    left:270px;
+    z-index:70;
+}
+
+#w18 {
+    width:139px;
+    height:50px;
+    background:url(images/w15.png);
+    top:421px;
+    left:429px;
+    z-index:70;
+}
+
+#w19 {
+    width:139px;
+    height:50px;
+    background:url(images/w16.png);
+    top:421px;
+    left:712px;
+    z-index:70;
+}
+
+#w20 {
+    width:109px;
+    height:121px;
+    background:url(images/w17.png);
+    top:422px;
+    left:900px;
+    z-index:70;
+}
+
+#w21 {
+    width:248px;
+    height:134px;
+    background:url(images/w18.png);
+    top:489px;
+    left:516px;
+    z-index:80;
+}
+
+#w22 {
+    width:336px;
+    height:133px;
+    background:url(images/w19.png);
+    top:490px;
+    left:223px;
+    z-index:90;
+}
+
+#w23 {
+    width:336px;
+    height:133px;
+    background:url(images/w19.png);
+    top:490px;
+    left:223px;
+    z-index:90;
+}
+
+#w24 {
+    width:336px;
+    height:133px;
+    background:url(images/w20.png);
+    top:490px;
+    left:721px;
+    z-index:90;
+}
+
+#w25 {
+    width:1060px;
+    height:390px;
+    background:url(images/w21.png);
+    top:306px;
+    left:110px;
+    z-index:100;
+}
+
