@@ -3838,3 +3838,37 @@
     background:url(images/pr.jpg) -7494px 0;
 }
 
+/* lives */
+
+#l1 {
+    top:687px;
+    left:104px;
+    width:72px;
+    height:69px;
+    background:url(images/lives.png) 0 0;
+}
+
+#l2 {
+    top:687px;
+    left:185px;
+    width:70px;
+    height:69px;
+    background:url(images/lives.png) -72px 0;
+}
+
+#l3 {
+    top:687px;
+    left:266px;
+    width:68px;
+    height:69px;
+    background:url(images/lives.png) 0 -69px;
+}
+
+#l4 {
+    top:687px;
+    left:346px;
+    width:67px;
+    height:69px;
+    background:url(images/lives.png) -68px -69px;
+}
+

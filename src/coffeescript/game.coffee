@@ -73,6 +73,9 @@ game =
         # ghosts
         # $('#game').append $('<div id="g' + i + '"/>') for i in [0..3]
 
+        # life sprites
+        $('#game').append $('<div id="l' + i + '" class="lives"/>') for i in [1..4]
+
         return
 
     # initialize level

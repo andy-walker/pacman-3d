@@ -694,7 +694,7 @@
       this.loop();
     },
     initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k;
+      var currentTop, i, top, y, _i, _j, _k, _l;
       $('body').append($("<div id='game'/>"));
       for (i = _i = 1; _i <= 25; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
@@ -714,6 +714,9 @@
         $('#game').append($("<div id='pr" + i + "' class='pr'/>"));
       }
       $('#game').append($('<div id="pacman"/>'));
+      for (i = _l = 1; _l <= 4; i = ++_l) {
+        $('#game').append($('<div id="l' + i + '" class="lives"/>'));
+      }
     },
     initLevel: function() {
       this.level = new Level(this);

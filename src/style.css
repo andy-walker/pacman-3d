@@ -24,6 +24,8 @@ body {
 
 #game div { opacity:1; position:absolute; }
 
+.lives { position:absolute; z-index:200; }
+
 .p  { position:absolute; z-index:200; }
 .pr { position:absolute; z-index:1; }
 .pm { position:absolute; z-index:300; display:none;}
