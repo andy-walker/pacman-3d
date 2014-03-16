@@ -92,7 +92,8 @@ class Renderer
         # remove any pills which have been eaten
         if pill = @game.level.isPillCollision()
             index = @getPillIndex pill.x, pill.y
-            $('#p' + index + ', #pr' + index).hide()
+            $('#p' + index).hide()
+            $('#pr' + index).fadeOut 200
             @game.level.pillCollisionAt = []
             
         return

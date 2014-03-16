@@ -62,7 +62,7 @@ game =
                 top = currentTop
                 y++
 
-            $('#p' + i).css 'z-index', frames.z[y] - 5
+            $('#p' + i).css 'z-index', (frames.z[y] - 1)
 
         # pill reflections
         $('#game').append $("<div id='pr" + i + "' class='pr'/>") for i in [1..240]
@@ -71,7 +71,7 @@ game =
         $('#game').append $('<div id="pacman"/>')
 
         # ghosts
-        $('#game').append $('<div id="g' + i + '"/>') for i in [0..3]
+        # $('#game').append $('<div id="g' + i + '"/>') for i in [0..3]
 
         return
 
@@ -104,7 +104,7 @@ game =
       
         game.renderer.render()
         game.pacman.move()
-        game.ghosts[i].move() for i in [0..3]
+        # game.ghosts[i].move() for i in [0..3]
 
         #if (!(--@level.pills))
         #   @level.up()
