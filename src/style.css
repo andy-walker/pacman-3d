@@ -85,7 +85,7 @@ body {
     background:url(images/w0.png) 0 -117px;
     top:213px;
     left:258px;
-    z-index:30;    
+    z-index:35;    
 }
 
 #w3 {
@@ -135,7 +135,7 @@ body {
 
 #w8 {
     width:123px;
-    height:126px;
+    height:41px;
     background:url(images/w6.png);
     top:172px;
     left:459px;
@@ -143,6 +143,18 @@ body {
 }
 
 #w9 {
+    width:123px;
+    height:85px;
+    background:url(images/w6.png);
+    top:213px;
+    left:459px;
+    z-index:35;
+    background-position:0 -41px;
+}
+
+
+
+#w10 {
     width:182px;
     height:80px;
     background:url(images/w7.png);
@@ -151,16 +163,26 @@ body {
     z-index:20;
 }
 
-#w10 {
+#w11 {
     width:123px;
-    height:126px;
+    height:41px;
     background:url(images/w8.png);
     top:172px;
     left:698px;
     z-index:30;
 }
 
-#w11 {
+#w12 {
+    width:123px;
+    height:85px;
+    background:url(images/w8.png);
+    top:213px;
+    left:698px;
+    z-index:35;
+    background-position:0 -41px;
+}
+
+#w13 {
     width:84px;
     height:37px;
     background:url(images/w9.png);
@@ -169,7 +191,7 @@ body {
     z-index:20;
 }
 
-#w12 {
+#w14 {
     width:210px;
     height:60px;
     background:url(images/w10.png);
@@ -178,7 +200,7 @@ body {
     z-index:40;
 }
 
-#w13 {
+#w15 {
     width:210px;
     height:33px;
     background:url(images/w10.png) 0 -60px;
@@ -187,25 +209,25 @@ body {
     z-index:50;
 }
 
-#w14 {
+#w16 {
     width:51px;
     height:101px;
     background:url(images/w11.png);
     top:306px;
     left:440px;
-    z-index:50;
+    z-index:45;
 }
 
-#w15 {
+#w17 {
     width:51px;
     height:101px;
     background:url(images/w12.png);
     top:306px;
     left:789px;
-    z-index:50;
+    z-index:45;
 }
 
-#w16 {
+#w18 {
     width:222px;
     height:110px;
     background:url(images/w13.png);
@@ -214,7 +236,7 @@ body {
     z-index:60;
 }
 
-#w17 {
+#w19 {
     width:109px;
     height:121px;
     background:url(images/w14.png);
@@ -223,7 +245,7 @@ body {
     z-index:70;
 }
 
-#w18 {
+#w20 {
     width:139px;
     height:50px;
     background:url(images/w15.png);
@@ -232,7 +254,7 @@ body {
     z-index:70;
 }
 
-#w19 {
+#w21 {
     width:139px;
     height:50px;
     background:url(images/w16.png);
@@ -241,7 +263,7 @@ body {
     z-index:70;
 }
 
-#w20 {
+#w22 {
     width:109px;
     height:121px;
     background:url(images/w17.png);
@@ -250,7 +272,7 @@ body {
     z-index:70;
 }
 
-#w21 {
+#w23 {
     width:248px;
     height:134px;
     background:url(images/w18.png);
@@ -259,25 +281,25 @@ body {
     z-index:80;
 }
 
-#w22 {
-    width:336px;
-    height:133px;
-    background:url(images/w19.png);
-    top:490px;
-    left:223px;
-    z-index:90;
-}
-
-#w23 {
-    width:336px;
-    height:133px;
-    background:url(images/w19.png);
-    top:490px;
-    left:223px;
-    z-index:90;
-}
-
 #w24 {
+    width:336px;
+    height:133px;
+    background:url(images/w19.png);
+    top:490px;
+    left:223px;
+    z-index:90;
+}
+
+#w25 {
+    width:336px;
+    height:133px;
+    background:url(images/w19.png);
+    top:490px;
+    left:223px;
+    z-index:90;
+}
+
+#w26 {
     width:336px;
     height:133px;
     background:url(images/w20.png);
@@ -286,7 +308,7 @@ body {
     z-index:90;
 }
 
-#w25 {
+#w27 {
     width:1060px;
     height:390px;
     background:url(images/w21.png);

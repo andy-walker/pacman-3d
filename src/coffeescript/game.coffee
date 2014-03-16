@@ -46,7 +46,7 @@ game =
         $('body').append $("<div id='game'/>")
 
         # environment walls
-        $('#game').append $("<div id='w" + i + "'/>") for i in [1..25]
+        $('#game').append $("<div id='w" + i + "'/>") for i in [1..27]
 
         # pills
         y   = 0

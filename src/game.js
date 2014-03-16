@@ -696,7 +696,7 @@
     initDOM: function() {
       var currentTop, i, top, y, _i, _j, _k, _l;
       $('body').append($("<div id='game'/>"));
-      for (i = _i = 1; _i <= 25; i = ++_i) {
+      for (i = _i = 1; _i <= 27; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
       }
       y = 0;
