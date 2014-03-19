@@ -206,7 +206,7 @@ body {
     background:url(images/w10.png) 0 -60px;
     top:317px;
     left:535px;
-    z-index:50;
+    z-index:45;
 }
 
 #w16 {
@@ -233,7 +233,7 @@ body {
     background:url(images/w13.png);
     top:361px;
     left:528px;
-    z-index:60;
+    z-index:55;
 }
 
 #w19 {
@@ -281,34 +281,43 @@ body {
     z-index:80;
 }
 
-#w24 {
+#w23 {
     width:336px;
-    height:133px;
+    height:70px;
     background:url(images/w19.png);
     top:490px;
     left:223px;
-    z-index:90;
+    z-index:80;
 }
 
 #w25 {
     width:336px;
-    height:133px;
-    background:url(images/w19.png);
-    top:490px;
+    height:63px;
+    background:url(images/w19.png) 0 -70px;
+    top:560px;
     left:223px;
     z-index:90;
 }
 
 #w26 {
     width:336px;
-    height:133px;
+    height:70px;
     background:url(images/w20.png);
     top:490px;
+    left:721px;
+    z-index:80;
+}
+
+#w27 {
+    width:336px;
+    height:63px;
+    background:url(images/w20.png) 0 -70px;
+    top:560px;
     left:721px;
     z-index:90;
 }
 
-#w27 {
+#w28 {
     width:1060px;
     height:390px;
     background:url(images/w21.png);
