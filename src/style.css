@@ -281,7 +281,7 @@ body {
     z-index:80;
 }
 
-#w23 {
+#w24 {
     width:336px;
     height:70px;
     background:url(images/w19.png);
@@ -319,10 +319,27 @@ body {
 
 #w28 {
     width:1060px;
-    height:390px;
+    height:184px;
     background:url(images/w21.png);
     top:306px;
     left:110px;
-    z-index:100;
+    z-index:40;
 }
 
+#w29 {
+    width:1060px;
+    height:163px;
+    background:url(images/w21.png) 0 -184px;
+    top:490px;
+    left:110px;
+    z-index:80;
+}
+
+#w30 {
+    width:1060px;
+    height:43px;
+    background:url(images/w21.png) 0 -347px;
+    top:653px;
+    left:110px;
+    z-index:100;
+}

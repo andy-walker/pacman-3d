@@ -694,9 +694,9 @@
       this.loop();
     },
     initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k, _l;
+      var currentTop, i, top, y, _i, _j, _k, _l, _m;
       $('body').append($("<div id='game'/>"));
-      for (i = _i = 1; _i <= 28; i = ++_i) {
+      for (i = _i = 1; _i <= 30; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
       }
       y = 0;
@@ -714,7 +714,10 @@
         $('#game').append($("<div id='pr" + i + "' class='pr'/>"));
       }
       $('#game').append($('<div id="pacman"/>'));
-      for (i = _l = 1; _l <= 4; i = ++_l) {
+      for (i = _l = 0; _l <= 3; i = ++_l) {
+        $('#game').append($('<div id="g' + i + '"/>'));
+      }
+      for (i = _m = 1; _m <= 4; i = ++_m) {
         $('#game').append($('<div id="l' + i + '" class="lives"/>'));
       }
     },
@@ -737,8 +740,12 @@
       }
     },
     loop: function() {
+      var i, _i;
       game.renderer.render();
       game.pacman.move();
+      for (i = _i = 0; _i <= 3; i = ++_i) {
+        game.ghosts[i].move();
+      }
       setTimeout(game.loop, 35);
     }
   };
