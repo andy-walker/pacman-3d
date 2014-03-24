@@ -17,6 +17,12 @@
 :: build dark blue ghost sprite
 :: build\spritekit.py src\exported-images\ghost-dblue.1.png src\images\g4.png src\test11.coffee "g"
 
+:: build white ghost sprite
+:: build\spritekit.py src\exported-images\ghost-white.1.png src\images\g5.png src\test11.coffee "g"
+
+:: build eyes-only ghost sprite
+:: build\spritekit.py src\exported-images\ghost-eyes.1.png src\images\g6.png src\test12.coffee "g6"
+
 :: build lives sprite
 :: build\spritekit.py src\exported-images\pacman-lives.1.png src\images\lives.png src\gen.css "#lives"
 
