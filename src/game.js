@@ -694,7 +694,7 @@
       this.loop();
     },
     initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k, _l, _m;
+      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
       $('body').append($("<div id='game'/>"));
       for (i = _i = 1; _i <= 30; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
@@ -713,11 +713,14 @@
       for (i = _k = 1; _k <= 240; i = ++_k) {
         $('#game').append($("<div id='pr" + i + "' class='pr'/>"));
       }
+      for (i = _l = 1; _l <= 4; i = ++_l) {
+        $('#game').append($("<div id='energizer" + i + "' class='energizer'/>"));
+      }
       $('#game').append($('<div id="pacman"/>'));
-      for (i = _l = 0; _l <= 3; i = ++_l) {
+      for (i = _m = 0; _m <= 3; i = ++_m) {
         $('#game').append($('<div id="g' + i + '"/>'));
       }
-      for (i = _m = 1; _m <= 4; i = ++_m) {
+      for (i = _n = 1; _n <= 4; i = ++_n) {
         $('#game').append($('<div id="l' + i + '" class="lives"/>'));
       }
     },

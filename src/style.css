@@ -30,6 +30,8 @@ body {
 .pr { position:absolute; z-index:1; }
 .pm { position:absolute; z-index:300; display:none;}
 
+.energizer { position:absolute; z-index:2; }
+
 #pacman { 
     position:absolute; 
     z-index:300; 

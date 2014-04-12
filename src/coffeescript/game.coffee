@@ -67,6 +67,9 @@ game =
         # pill reflections
         $('#game').append $("<div id='pr" + i + "' class='pr'/>") for i in [1..240]
 
+        # energizer pills
+        $('#game').append $("<div id='energizer" + i + "' class='energizer'/>") for i in [1..4]
+
         # pacman 
         $('#game').append $('<div id="pacman"/>')
 

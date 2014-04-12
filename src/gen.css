@@ -3872,3 +3872,39 @@
     background:url(images/lives.png) -68px -69px;
 }
 
+#energizer1 {
+    top:126px;
+    left:335px;
+    width:21px;
+    height:21px;
+    background:url(images/e.png) 0 0;
+    z-index:12;
+}
+
+#energizer2 {
+    top:126px;
+    left:924px;
+    width:21px;
+    height:21px;
+    background:url(images/e.png) -21px 0;
+    z-index:12;
+}
+
+#energizer3 {
+    top:454px;
+    left:214px;
+    width:30px;
+    height:28px;
+    background:url(images/e.png) -42px 0;
+    z-index:75;
+}
+
+#energizer4 {
+    top:454px;
+    left:1036px;
+    width:30px;
+    height:28px;
+    background:url(images/e.png) 0 -28px;
+    z-index:75;
+}
+
