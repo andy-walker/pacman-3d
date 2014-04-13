@@ -7,15 +7,19 @@ class Renderer
     constructor: (@game) ->
         return
 
-    changeMode: (mode) ->
-        console.log 'changeMode ' + mode
-        switch mode
+    changeMode: (@mode) ->
+        switch @mode
             when 'f'
-                $('.ghost').addClass 'frightened'
-                $('#g' + i).removeClass 'ghost' + i for i in [0..3]
-            else 
-                $('.ghost').removeClass 'frightened'
-                $('#g' + i).addClass 'ghost' + i for i in [0..3]
+                styleReset = 
+                    width:  '1px'
+                    height: '1px'
+                    top:    0
+                    left:   0
+
+                for index, ghost of @game.ghosts
+                    frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                    $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
+                    $('#g' + index).css(styleReset)
 
 
     getFrame: (x, y, direction) ->
@@ -24,7 +28,7 @@ class Renderer
 
         switch direction
             
-            # lookup frame for horizonal motion
+            # lookup frame for horiztonal motion
             when 'r'
                 
                 frame = frames.h[Math.floor y][Math.floor x]
@@ -98,7 +102,7 @@ class Renderer
         # lookup and apply styles for ghosts
         for index, ghost of @game.ghosts
             frameno = @getFrame ghost.x, ghost.y, ghost.direction
-            $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
+            $('#g' + index + (if @mode is 'f' then 'b' else '')).css @getStyles(ghost, frameno, ghost.y)
 
         # check if pacman has collided with any pills
         if pill = @game.level.isPillCollision()

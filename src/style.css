@@ -41,37 +41,73 @@ body {
     height: 0;
 }
 
-.ghost0 { background:url(images/g0.png); }
-.ghost1 { background:url(images/g1.png); }
-.ghost2 { background:url(images/g2.png); }
-.ghost3 { background:url(images/g3.png); }
+.ghost0 {  }
+.ghost1 { }
+.ghost2 {  }
+.ghost3 {  }
 
 #g0 {
     position:absolute; 
     z-index:300; 
     width: 0;
-    height: 0;    
+    height: 0;
+    background:url(images/g0.png);   
 }
 
 #g1 {
     position:absolute; 
     z-index:300; 
     width: 0;
-    height: 0;    
+    height: 0;
+    background:url(images/g1.png); 
 }
 
 #g2 {
     position:absolute; 
     z-index:300; 
     width: 0;
-    height: 0;    
+    height: 0;
+    background:url(images/g2.png);   
 }
 
 #g3 {
     position:absolute; 
     z-index:300; 
     width: 0;
-    height: 0;    
+    height: 0;
+    background:url(images/g3.png); 
+}
+
+#g0b {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g4.png);   
+}
+
+#g1b {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g4.png); 
+}
+
+#g2b {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g4.png);   
+}
+
+#g3b {
+    position:absolute; 
+    z-index:300; 
+    width: 10px;
+    height: 1px;
+    background:url(images/g4.png); 
 }
 
 #w1 {

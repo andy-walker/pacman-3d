@@ -75,7 +75,8 @@ game =
         $('#game').append $('<div id="pacman"/>')
 
         # ghosts
-        $('#game').append $('<div id="g' + i + '" class="ghost ghost' + i + '"/>') for i in [0..3]
+        $('#game').append $('<div id="g' + i + '"/>')  for i in [0..3]
+        $('#game').append $('<div id="g' + i + 'b"/>') for i in [0..3]
 
         # life sprites
         $('#game').append $('<div id="l' + i + '" class="lives"/>') for i in [1..4]

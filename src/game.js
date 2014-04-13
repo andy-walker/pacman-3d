@@ -494,24 +494,25 @@
     }
 
     Renderer.prototype.changeMode = function(mode) {
-      var i, _i, _j, _results, _results1;
-      console.log('changeMode ' + mode);
-      switch (mode) {
+      var frameno, ghost, index, styleReset, _ref, _results;
+      this.mode = mode;
+      switch (this.mode) {
         case 'f':
-          $('.ghost').addClass('frightened');
+          styleReset = {
+            width: '1px',
+            height: '1px',
+            top: 0,
+            left: 0
+          };
+          _ref = this.game.ghosts;
           _results = [];
-          for (i = _i = 0; _i <= 3; i = ++_i) {
-            _results.push($('#g' + i).removeClass('ghost' + i));
+          for (index in _ref) {
+            ghost = _ref[index];
+            frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+            $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
+            _results.push($('#g' + index).css(styleReset));
           }
           return _results;
-          break;
-        default:
-          $('.ghost').removeClass('frightened');
-          _results1 = [];
-          for (i = _j = 0; _j <= 3; i = ++_j) {
-            _results1.push($('#g' + i).addClass('ghost' + i));
-          }
-          return _results1;
       }
     };
 
@@ -601,7 +602,7 @@
       for (index in _ref) {
         ghost = _ref[index];
         frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-        $('#g' + index).css(this.getStyles(ghost, frameno, ghost.y));
+        $('#g' + index + (this.mode === 'f' ? 'b' : '')).css(this.getStyles(ghost, frameno, ghost.y));
       }
       if (pill = this.game.level.isPillCollision()) {
         index = this.getPillIndex(pill.x, pill.y);
@@ -728,7 +729,7 @@
       this.loop();
     },
     initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
+      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n, _o;
       $('body').append($("<div id='game'/>"));
       for (i = _i = 1; _i <= 30; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
@@ -752,9 +753,12 @@
       }
       $('#game').append($('<div id="pacman"/>'));
       for (i = _m = 0; _m <= 3; i = ++_m) {
-        $('#game').append($('<div id="g' + i + '" class="ghost ghost' + i + '"/>'));
+        $('#game').append($('<div id="g' + i + '"/>'));
       }
-      for (i = _n = 1; _n <= 4; i = ++_n) {
+      for (i = _n = 0; _n <= 3; i = ++_n) {
+        $('#game').append($('<div id="g' + i + 'b"/>'));
+      }
+      for (i = _o = 1; _o <= 4; i = ++_o) {
         $('#game').append($('<div id="l' + i + '" class="lives"/>'));
       }
     },
