@@ -110,6 +110,38 @@ body {
     background:url(images/g4.png); 
 }
 
+#g0c {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g5.png);   
+}
+
+#g1c {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g5.png); 
+}
+
+#g2c {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g5.png);   
+}
+
+#g3c {
+    position:absolute; 
+    z-index:300; 
+    width: 10px;
+    height: 1px;
+    background:url(images/g5.png); 
+}
+
 #w1 {
     width:764px;
     height:117px;

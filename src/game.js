@@ -495,13 +495,19 @@
       left: 0
     };
 
+    Renderer.prototype.flashSpeed = 500;
+
+    Renderer.prototype.flashing = false;
+
+    Renderer.prototype.flashState = false;
+
     function Renderer(game) {
       this.game = game;
       return;
     }
 
     Renderer.prototype.changeMode = function(mode) {
-      var frameno, ghost, index, _ref, _ref1;
+      var flashTime, frameno, frightTime, ghost, index, numFlashes, waitTime, _ref, _ref1;
       switch (true) {
         case mode === 'f':
           _ref = this.game.ghosts;
@@ -511,6 +517,15 @@
             $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
             $('#g' + index).css(this.styleReset);
           }
+          frightTime = levelSpec[this.game.level.level].frightTime * 1000;
+          numFlashes = levelSpec[this.game.level.level].numFlashes;
+          flashTime = ((numFlashes * 2) - 1) * Math.round(this.flashSpeed / 2);
+          waitTime = frightTime - flashTime;
+          setTimeout((function() {
+            game.renderer.flashing = true;
+            return game.renderer.flashGhosts(true);
+          }), waitTime > 0 ? waitTime : 0);
+          this.flashState = false;
           break;
         case mode === 'c' && this.mode === 'f':
           _ref1 = this.game.ghosts;
@@ -518,10 +533,45 @@
             ghost = _ref1[index];
             frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
             $('#g' + index).css(this.getStyles(ghost, frameno, ghost.y));
-            $('#g' + index + 'b').css(this.styleReset);
+            $('#g' + index + 'b, #g' + index + 'c').css(this.styleReset);
           }
+          this.flashing = false;
+          this.flashState = false;
       }
       return this.mode = mode;
+    };
+
+    Renderer.prototype.flashGhosts = function(flashState) {
+      var frameno, ghost, index, timeoutFunction, _ref, _ref1;
+      this.flashState = flashState;
+      if (this.flashing) {
+        switch (this.flashState) {
+          case true:
+            _ref = this.game.ghosts;
+            for (index in _ref) {
+              ghost = _ref[index];
+              frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+              $('#g' + index + 'c').css(this.getStyles(ghost, frameno, ghost.y));
+              $('#g' + index + 'b').css(this.styleReset);
+              timeoutFunction = function() {
+                return game.renderer.flashGhosts(false);
+              };
+            }
+            break;
+          case false:
+            _ref1 = this.game.ghosts;
+            for (index in _ref1) {
+              ghost = _ref1[index];
+              frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+              $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
+              $('#g' + index + 'c').css(this.styleReset);
+              timeoutFunction = function() {
+                return game.renderer.flashGhosts(true);
+              };
+            }
+        }
+        return setTimeout(timeoutFunction, Math.round(this.flashSpeed / 2));
+      }
     };
 
     Renderer.prototype.getFrame = function(x, y, direction) {
@@ -603,14 +653,23 @@
     };
 
     Renderer.prototype.render = function() {
-      var frameno, ghost, index, pill, _ref;
+      var frameno, ghost, index, pill, selector, _ref;
       frameno = this.getFrame(this.game.pacman.x, this.game.pacman.y, this.game.pacman.direction);
       $('#pacman').css(this.getStyles(this.game.pacman, frameno, this.game.pacman.y));
       _ref = this.game.ghosts;
       for (index in _ref) {
         ghost = _ref[index];
+        if (this.mode === 'f' && this.flashState === true) {
+          selector = '#g' + index + 'c';
+        }
+        if (this.mode === 'f' && this.flashState === false) {
+          selector = '#g' + index + 'b';
+        }
+        if (this.mode !== 'f') {
+          selector = '#g' + index;
+        }
         frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-        $('#g' + index + (this.mode === 'f' ? 'b' : '')).css(this.getStyles(ghost, frameno, ghost.y));
+        $(selector).css(this.getStyles(ghost, frameno, ghost.y));
       }
       if (pill = this.game.level.isPillCollision()) {
         index = this.getPillIndex(pill.x, pill.y);
@@ -742,7 +801,7 @@
       this.loop();
     },
     initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n, _o;
+      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
       $('body').append($("<div id='game'/>"));
       for (i = _i = 1; _i <= 30; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
@@ -767,11 +826,10 @@
       $('#game').append($('<div id="pacman"/>'));
       for (i = _m = 0; _m <= 3; i = ++_m) {
         $('#game').append($('<div id="g' + i + '"/>'));
-      }
-      for (i = _n = 0; _n <= 3; i = ++_n) {
         $('#game').append($('<div id="g' + i + 'b"/>'));
+        $('#game').append($('<div id="g' + i + 'c"/>'));
       }
-      for (i = _o = 1; _o <= 4; i = ++_o) {
+      for (i = _n = 1; _n <= 4; i = ++_n) {
         $('#game').append($('<div id="l' + i + '" class="lives"/>'));
       }
     },

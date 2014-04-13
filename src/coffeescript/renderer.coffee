@@ -10,6 +10,10 @@ class Renderer
         top:    0
         left:   0
 
+    flashSpeed: 500
+    flashing:   no
+    flashState: off
+
     constructor: (@game) ->
         return
 
@@ -28,21 +32,60 @@ class Renderer
                     $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
                     $('#g' + index).css(@styleReset)
 
+                # calculate time to wait before beginning flash sequence
+                frightTime = levelSpec[@game.level.level].frightTime * 1000
+                numFlashes = levelSpec[@game.level.level].numFlashes
+                flashTime  = ((numFlashes * 2) - 1) * Math.round @flashSpeed / 2
+                waitTime   = frightTime - flashTime
+
+                setTimeout(
+                    ( 
+                        ->
+                            game.renderer.flashing = yes
+                            game.renderer.flashGhosts(on)
+
+                    ),
+                    if waitTime > 0 then waitTime else 0
+                )
+
+                @flashState = off
+
             # when changing from frightened mode to chase mode, 
             # do the above but in reverse
             when mode is 'c' and @mode is 'f'
-             
+                
                 for index, ghost of @game.ghosts
                     frameno = @getFrame ghost.x, ghost.y, ghost.direction
                     $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
-                    $('#g' + index + 'b').css(@styleReset)
+                    $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
+
+                @flashing   = no
+                @flashState = off
 
         @mode = mode
 
 
-    getFrame: (x, y, direction) ->
+    flashGhosts: (@flashState) ->
+       
+        if @flashing
+            switch @flashState
+                when on
+                    for index, ghost of @game.ghosts
+                        frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                        $('#g' + index + 'c').css @getStyles(ghost, frameno, ghost.y)
+                        $('#g' + index + 'b').css(@styleReset)
+                        timeoutFunction = -> game.renderer.flashGhosts(off)
+                when off
+                    for index, ghost of @game.ghosts
+                        frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                        $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
+                        $('#g' + index + 'c').css(@styleReset)
+                        timeoutFunction = -> game.renderer.flashGhosts(on)
 
-        #console.log 'x:' + x + ', y:' + y + ', d:' + direction
+            setTimeout timeoutFunction, Math.round @flashSpeed / 2                  
+
+    
+    getFrame: (x, y, direction) ->
 
         switch direction
             
@@ -116,11 +159,18 @@ class Renderer
         # lookup pacman frame number from current location then get and apply styles
         frameno = @getFrame @game.pacman.x, @game.pacman.y, @game.pacman.direction
         $('#pacman').css @getStyles(@game.pacman, frameno, @game.pacman.y)
-        
+
         # lookup and apply styles for ghosts
         for index, ghost of @game.ghosts
+            
+            # get selector to the active ghost div
+            selector = '#g' + index + 'c' if @mode is 'f' and @flashState is on
+            selector = '#g' + index + 'b' if @mode is 'f' and @flashState is off
+            selector = '#g' + index if @mode isnt 'f'
+            
+            # lookup and apply style
             frameno = @getFrame ghost.x, ghost.y, ghost.direction
-            $('#g' + index + (if @mode is 'f' then 'b' else '')).css @getStyles(ghost, frameno, ghost.y)
+            $(selector).css @getStyles(ghost, frameno, ghost.y)
 
         # check if pacman has collided with any pills
         if pill = @game.level.isPillCollision()
