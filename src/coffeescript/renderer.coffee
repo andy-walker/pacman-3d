@@ -7,6 +7,17 @@ class Renderer
     constructor: (@game) ->
         return
 
+    changeMode: (mode) ->
+        console.log 'changeMode ' + mode
+        switch mode
+            when 'f'
+                $('.ghost').addClass 'frightened'
+                $('#g' + i).removeClass 'ghost' + i for i in [0..3]
+            else 
+                $('.ghost').removeClass 'frightened'
+                $('#g' + i).addClass 'ghost' + i for i in [0..3]
+
+
     getFrame: (x, y, direction) ->
 
         #console.log 'x:' + x + ', y:' + y + ', d:' + direction
@@ -66,7 +77,7 @@ class Renderer
     getPillIndex: (x, y) -> frames.p[y][x]
 
     getStyles: (character, frameno, y = 0) ->
-        #console.log 'f' + frameno
+      
         style = if character is @game.pacman then styles.pm[frameno] else styles.g[frameno]
         return {
             "top":                 style[0]
@@ -89,12 +100,22 @@ class Renderer
             frameno = @getFrame ghost.x, ghost.y, ghost.direction
             $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
 
-        # remove any pills which have been eaten
+        # check if pacman has collided with any pills
         if pill = @game.level.isPillCollision()
+            
+            # lookup index for pill we've collided with
             index = @getPillIndex pill.x, pill.y
-            $('#p' + index).hide()
-            $('#pr' + index).fadeOut 200
-            @game.level.pillCollisionAt = []
+            
+            # for energizer pills, function will return a value prepended with
+            # the letter 'e'
+            if typeof index is 'string' and index.indexOf('e') is 0
+                $(index.replace('e', '#energizer')).hide()
+            else
+                $('#p' + index).hide()
+                $('#pr' + index).fadeOut 200
+            
+            # collision processed, clear the array which keeps track of collisions
+            @game.level.clearPillCollisions()
             
         return
 

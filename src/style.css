@@ -30,7 +30,8 @@ body {
 .pr { position:absolute; z-index:1; }
 .pm { position:absolute; z-index:300; display:none;}
 
-.energizer { position:absolute; }
+.energizer  { position:absolute; }
+.frightened { background-image:url(images/g4.png); }
 
 #pacman { 
     position:absolute; 
@@ -40,10 +41,14 @@ body {
     height: 0;
 }
 
+.ghost0 { background:url(images/g0.png); }
+.ghost1 { background:url(images/g1.png); }
+.ghost2 { background:url(images/g2.png); }
+.ghost3 { background:url(images/g3.png); }
+
 #g0 {
     position:absolute; 
     z-index:300; 
-    background:url(images/g0.png);
     width: 0;
     height: 0;    
 }
@@ -51,7 +56,6 @@ body {
 #g1 {
     position:absolute; 
     z-index:300; 
-    background:url(images/g1.png);
     width: 0;
     height: 0;    
 }
@@ -59,7 +63,6 @@ body {
 #g2 {
     position:absolute; 
     z-index:300; 
-    background:url(images/g2.png);
     width: 0;
     height: 0;    
 }
@@ -67,7 +70,6 @@ body {
 #g3 {
     position:absolute; 
     z-index:300; 
-    background:url(images/g3.png);
     width: 0;
     height: 0;    
 }

@@ -7,7 +7,12 @@ class Level
 
     constructor: (@game) -> @initialize()
 
-    changeMode: (mode) -> ghost.changeMode mode for ghost in @game.ghosts
+    changeMode: (mode) -> 
+
+        ghost.changeMode mode for ghost in @game.ghosts
+        @game.renderer.changeMode mode
+
+    clearPillCollisions: -> @pillCollisionAt = []
 
     initialize: ->
         
@@ -35,12 +40,10 @@ class Level
         unless @pillCollisionAt.length
             return no
         
-        coordinates =
+        # if collision, return object containing x, y co-ordinates
+        collision =
             x: @pillCollisionAt[0]
             y: @pillCollisionAt[1]
-
-        @pillCollisionAt = []
-        return coordinates
 
 
     pacmanPosition: (x, y) ->
@@ -60,7 +63,7 @@ class Level
                 @pillCollisionAt = [x, y]
 
                 # set ghost mode to 'frightened'
-                # @changeMode 'f'
+                @changeMode 'f'
 
         return
 

@@ -18,14 +18,20 @@ class Ghost extends Character
 
 
     changeMode: (@mode) -> 
-        # todo: additional stuff for changing sprite png when frightened etc
-       
+     
+        # when entering 'frightened' mode, reverse direction
+        if @mode is 'f'
+            @direction = @opposite @direction
 
 
     chooseDirection: (allowedDirections) ->
 
         # if there's only one way we can go, go that way
         return allowedDirections[0] if allowedDirections.length is 1
+
+        # when in frigtened mode, choose a random direction 
+        # from the directions we're allowed to go in
+        return _.shuffle(allowedDirections)[0] if @mode is 'f'
 
         # otherwise, get best direction
         target           = @getTargetSquare()
