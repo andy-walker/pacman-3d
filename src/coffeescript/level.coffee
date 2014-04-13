@@ -12,6 +12,10 @@ class Level
         ghost.changeMode mode for ghost in @game.ghosts
         @game.renderer.changeMode mode
 
+        if mode is 'f'
+            setTimeout((-> game.level.changeMode 'c'), 6000)
+         
+
     clearPillCollisions: -> @pillCollisionAt = []
 
     initialize: ->

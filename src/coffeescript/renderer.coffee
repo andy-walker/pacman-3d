@@ -4,22 +4,40 @@ class Renderer
     # temporary
     # currentFrame: 0
 
+    styleReset: 
+        width:  '1px'
+        height: '1px'
+        top:    0
+        left:   0
+
     constructor: (@game) ->
         return
 
-    changeMode: (@mode) ->
-        switch @mode
-            when 'f'
-                styleReset = 
-                    width:  '1px'
-                    height: '1px'
-                    top:    0
-                    left:   0
+
+    changeMode: (mode) ->
+        
+        switch true
+            
+            # when changing to frightened mode, reset main ghost sprites and apply
+            # styles to frightened sprites - ideally, would like to defer this to frame 
+            # render, rather than doing this in-between frames
+            when mode is 'f'
 
                 for index, ghost of @game.ghosts
                     frameno = @getFrame ghost.x, ghost.y, ghost.direction
                     $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
-                    $('#g' + index).css(styleReset)
+                    $('#g' + index).css(@styleReset)
+
+            # when changing from frightened mode to chase mode, 
+            # do the above but in reverse
+            when mode is 'c' and @mode is 'f'
+             
+                for index, ghost of @game.ghosts
+                    frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                    $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
+                    $('#g' + index + 'b').css(@styleReset)
+
+        @mode = mode
 
 
     getFrame: (x, y, direction) ->
