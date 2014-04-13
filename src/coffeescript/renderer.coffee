@@ -1,4 +1,4 @@
-# todo: display class - abstract image display functionality into this class
+# display class - abstract image display functionality into this class
 class Renderer
 
     # temporary
@@ -68,19 +68,26 @@ class Renderer
     flashGhosts: (@flashState) ->
        
         if @flashing
+            
             switch @flashState
+                
                 when on
+                    
                     for index, ghost of @game.ghosts
                         frameno = @getFrame ghost.x, ghost.y, ghost.direction
                         $('#g' + index + 'c').css @getStyles(ghost, frameno, ghost.y)
                         $('#g' + index + 'b').css(@styleReset)
-                        timeoutFunction = -> game.renderer.flashGhosts(off)
+                    
+                    timeoutFunction = -> game.renderer.flashGhosts(off)
+               
                 when off
+                    
                     for index, ghost of @game.ghosts
                         frameno = @getFrame ghost.x, ghost.y, ghost.direction
                         $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
                         $('#g' + index + 'c').css(@styleReset)
-                        timeoutFunction = -> game.renderer.flashGhosts(on)
+                    
+                    timeoutFunction = -> game.renderer.flashGhosts(on)
 
             setTimeout timeoutFunction, Math.round @flashSpeed / 2                  
 

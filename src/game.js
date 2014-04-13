@@ -553,10 +553,10 @@
               frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
               $('#g' + index + 'c').css(this.getStyles(ghost, frameno, ghost.y));
               $('#g' + index + 'b').css(this.styleReset);
-              timeoutFunction = function() {
-                return game.renderer.flashGhosts(false);
-              };
             }
+            timeoutFunction = function() {
+              return game.renderer.flashGhosts(false);
+            };
             break;
           case false:
             _ref1 = this.game.ghosts;
@@ -565,10 +565,10 @@
               frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
               $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
               $('#g' + index + 'c').css(this.styleReset);
-              timeoutFunction = function() {
-                return game.renderer.flashGhosts(true);
-              };
             }
+            timeoutFunction = function() {
+              return game.renderer.flashGhosts(true);
+            };
         }
         return setTimeout(timeoutFunction, Math.round(this.flashSpeed / 2));
       }
