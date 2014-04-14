@@ -18,6 +18,8 @@ class Level
 
     clearPillCollisions: -> @pillCollisionAt = []
 
+    # multidimensional array clone - default js behaviour is to reference,
+    # but we need a fresh copy on each new level
     getMaze: -> maze.map((arr) -> arr.slice())
 
     initialize: ->
