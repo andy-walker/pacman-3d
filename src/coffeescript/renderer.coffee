@@ -15,7 +15,6 @@ class Renderer
     flashState: off
 
     constructor: (@game) ->
-        return
 
 
     changeMode: (mode, ghost = null) ->
@@ -192,8 +191,10 @@ class Renderer
             try 
                 frameno = @getFrame ghost.x, ghost.y, ghost.direction
                 $(selector).css @getStyles(ghost, frameno, ghost.y)
+            
             catch e
-                console.log 'frameno = ' + frameno
+                null
+                #console.log 'frameno = ' + frameno
             
 
         # check if pacman has collided with any pills
@@ -214,4 +215,14 @@ class Renderer
             @game.level.clearPillCollisions()
             
         return
+
+
+    resetLevel: ->
+
+        $('#p' + i).show() for i in [1..240]
+        $('#pr' + i).show() for i in [1..240]
+        $('#energizer' + i).show() for i in [1..4]
+
+        for i in [0..3]
+            $('#g' + i + 'b, #g' + i + 'c, #g' + i + 'd').css(@styleReset)
 

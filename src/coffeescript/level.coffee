@@ -18,12 +18,14 @@ class Level
 
     clearPillCollisions: -> @pillCollisionAt = []
 
+    getMaze: -> maze.map((arr) -> arr.slice())
+
     initialize: ->
         
         # initialize pills, use local copy of maze array to 
         # keep additional track of these
         @pills = 240
-        @maze  = maze
+        @maze  = @getMaze()
 
         # instance pacman class
         @game.pacman = new Pacman @game
@@ -36,6 +38,8 @@ class Level
             new Clyde  @game, 3
         ]
         
+        @game.renderer.resetLevel()
+
         return
 
     

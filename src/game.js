@@ -510,7 +510,6 @@
 
     function Renderer(game) {
       this.game = game;
-      return;
     }
 
     Renderer.prototype.changeMode = function(mode, ghost) {
@@ -697,7 +696,7 @@
           $(selector).css(this.getStyles(ghost, frameno, ghost.y));
         } catch (_error) {
           e = _error;
-          console.log('frameno = ' + frameno);
+          null;
         }
       }
       if (pill = this.game.level.isPillCollision()) {
@@ -710,6 +709,24 @@
         }
         this.game.level.clearPillCollisions();
       }
+    };
+
+    Renderer.prototype.resetLevel = function() {
+      var i, _i, _j, _k, _l, _results;
+      for (i = _i = 1; _i <= 240; i = ++_i) {
+        $('#p' + i).show();
+      }
+      for (i = _j = 1; _j <= 240; i = ++_j) {
+        $('#pr' + i).show();
+      }
+      for (i = _k = 1; _k <= 4; i = ++_k) {
+        $('#energizer' + i).show();
+      }
+      _results = [];
+      for (i = _l = 0; _l <= 3; i = ++_l) {
+        _results.push($('#g' + i + 'b, #g' + i + 'c, #g' + i + 'd').css(this.styleReset));
+      }
+      return _results;
     };
 
     return Renderer;
@@ -749,11 +766,18 @@
       return this.pillCollisionAt = [];
     };
 
+    Level.prototype.getMaze = function() {
+      return maze.map(function(arr) {
+        return arr.slice();
+      });
+    };
+
     Level.prototype.initialize = function() {
       this.pills = 240;
-      this.maze = maze;
+      this.maze = this.getMaze();
       this.game.pacman = new Pacman(this.game);
       this.game.ghosts = [new Blinky(this.game, 0), new Inky(this.game, 1), new Pinky(this.game, 2), new Clyde(this.game, 3)];
+      this.game.renderer.resetLevel();
     };
 
     Level.prototype.isPillCollision = function() {
@@ -808,6 +832,7 @@
 
   $(document).keyup(function(e) {
     switch (e.which) {
+      case 27:
       case 37:
       case 38:
       case 39:
@@ -825,8 +850,8 @@
     counter: 1,
     init: function() {
       this.initDOM();
-      this.initLevel();
       this.initRenderer();
+      this.initLevel();
       this.loop();
     },
     initDOM: function() {
@@ -871,6 +896,8 @@
     },
     keyboardInput: function(key, down) {
       switch (true) {
+        case key === 27 && !down:
+          return this.initLevel();
         case key === 37:
           return this.input[1][0] = down;
         case key === 38:

@@ -8,9 +8,10 @@ $(document).keydown (e) ->
 
 $(document).keyup (e) ->
     switch e.which
-        when 37, 38, 39, 40
+        when 27, 37, 38, 39, 40
             game.keyboardInput e.which, 0
             e.preventDefault()
+
 
 game = 
     
@@ -31,10 +32,8 @@ game =
     init: ->
         
         @initDOM()
-
-        #@test()
-        @initLevel()
         @initRenderer()
+        @initLevel()
         @loop()
 
         return
@@ -103,7 +102,7 @@ game =
     keyboardInput: (key, down) ->
 
         switch true
-
+            when key is 27 and not down then @initLevel()
             when key is 37 then @input[1][0] = down
             when key is 38 then @input[0][1] = down
             when key is 39 then @input[1][2] = down
