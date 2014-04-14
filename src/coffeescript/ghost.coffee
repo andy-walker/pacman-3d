@@ -22,6 +22,8 @@ class Ghost extends Character
         # when entering 'frightened' mode, reverse direction
         if @mode is 'f'
             @direction = @opposite @direction
+        else if @mode is 'd'
+            @game.renderer.changeMode 'd', @
 
 
     chooseDirection: (allowedDirections) ->
@@ -86,8 +88,11 @@ class Ghost extends Character
             return yes if offsetX >= -1 and offsetX <= 1 and offsetY >= -1 and offsetY <= 1
                 
         # check for collisions with pacman
-        #pacman = @game.pacman
-        #return pacman if Math.round pacman.x is Math.round @x and Math.round pacman.y is Math.round @y
+        pacman  = @game.pacman
+        offsetX = pacman.x - @x
+        offsetY = pacman.y - @y 
+        
+        return pacman if offsetX >= -1 and offsetX <= 1 and offsetY >= -1 and offsetY <= 1
 
         return no
 
@@ -96,17 +101,17 @@ class Ghost extends Character
         
         # check for collisions
         if collisionObject = @checkForCollisions()
-
-            switch yes
+            
+            if collisionObject instanceof Pacman
+               # if @mode is 'f'
+               #     @changeMode 'd' 
                 
-                # if colliding with another ghost, reverse direction
-                when collisionObject then @direction = @opposite @direction
+            else
+                @direction = @opposite @direction
 
-                # if colliding with pacman, do nothing for now
-                when collisionObject instanceof Pacman then null 
 
         # if we're at integer co-ordinates (not between tiles)
-        else if @x % 1 is 0 and @y % 1 is 0
+        if @x % 1 is 0 and @y % 1 is 0 and collisionObject isnt yes
 
             # determine which directions we can move in
             allowedDirections = []

@@ -97,6 +97,8 @@
       this.mode = mode;
       if (this.mode === 'f') {
         return this.direction = this.opposite(this.direction);
+      } else if (this.mode === 'd') {
+        return this.game.renderer.changeMode('d', this);
       }
     };
 
@@ -165,7 +167,7 @@
     };
 
     Ghost.prototype.checkForCollisions = function() {
-      var ghost, index, offsetX, offsetY, _ref;
+      var ghost, index, offsetX, offsetY, pacman, _ref;
       _ref = this.game.ghosts;
       for (index in _ref) {
         ghost = _ref[index];
@@ -178,20 +180,25 @@
           return true;
         }
       }
+      pacman = this.game.pacman;
+      offsetX = pacman.x - this.x;
+      offsetY = pacman.y - this.y;
+      if (offsetX >= -1 && offsetX <= 1 && offsetY >= -1 && offsetY <= 1) {
+        return pacman;
+      }
       return false;
     };
 
     Ghost.prototype.move = function() {
       var allowedDirections, collisionObject, direction, _i, _len, _ref;
       if (collisionObject = this.checkForCollisions()) {
-        switch (true) {
-          case collisionObject:
-            this.direction = this.opposite(this.direction);
-            break;
-          case collisionObject instanceof Pacman:
-            null;
+        if (collisionObject instanceof Pacman) {
+
+        } else {
+          this.direction = this.opposite(this.direction);
         }
-      } else if (this.x % 1 === 0 && this.y % 1 === 0) {
+      }
+      if (this.x % 1 === 0 && this.y % 1 === 0 && collisionObject !== true) {
         allowedDirections = [];
         _ref = ['l', 'r', 'u', 'd'];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -506,9 +513,17 @@
       return;
     }
 
-    Renderer.prototype.changeMode = function(mode) {
-      var flashTime, frameno, frightTime, ghost, index, numFlashes, waitTime, _ref, _ref1;
+    Renderer.prototype.changeMode = function(mode, ghost) {
+      var flashTime, frameno, frightTime, index, numFlashes, waitTime, _ref, _ref1;
+      if (ghost == null) {
+        ghost = null;
+      }
       switch (true) {
+        case mode === 'd':
+          frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+          $('#g' + index + 'd').css(this.getStyles(ghost, frameno, ghost.y));
+          $('#g' + index + 'b, #g' + index + 'c').css(this.styleReset);
+          return;
         case mode === 'f':
           _ref = this.game.ghosts;
           for (index in _ref) {
@@ -641,7 +656,13 @@
       if (y == null) {
         y = 0;
       }
-      style = character === this.game.pacman ? styles.pm[frameno] : styles.g[frameno];
+      if (character === this.game.pacman) {
+        style = styles.pm[frameno];
+      } else if (character.mode === 'd') {
+        style = styles.g6[frameno];
+      } else {
+        style = styles.g[frameno];
+      }
       return {
         "top": style[0],
         "left": style[1],
@@ -653,7 +674,7 @@
     };
 
     Renderer.prototype.render = function() {
-      var frameno, ghost, index, pill, selector, _ref;
+      var e, frameno, ghost, index, pill, selector, _ref;
       frameno = this.getFrame(this.game.pacman.x, this.game.pacman.y, this.game.pacman.direction);
       $('#pacman').css(this.getStyles(this.game.pacman, frameno, this.game.pacman.y));
       _ref = this.game.ghosts;
@@ -668,8 +689,16 @@
         if (this.mode !== 'f') {
           selector = '#g' + index;
         }
-        frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-        $(selector).css(this.getStyles(ghost, frameno, ghost.y));
+        if (ghost.mode === 'd') {
+          selector = '#g' + index + 'd';
+        }
+        try {
+          frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+          $(selector).css(this.getStyles(ghost, frameno, ghost.y));
+        } catch (_error) {
+          e = _error;
+          console.log('frameno = ' + frameno);
+        }
       }
       if (pill = this.game.level.isPillCollision()) {
         index = this.getPillIndex(pill.x, pill.y);
@@ -828,6 +857,7 @@
         $('#game').append($('<div id="g' + i + '"/>'));
         $('#game').append($('<div id="g' + i + 'b"/>'));
         $('#game').append($('<div id="g' + i + 'c"/>'));
+        $('#game').append($('<div id="g' + i + 'd"/>'));
       }
       for (i = _n = 1; _n <= 4; i = ++_n) {
         $('#game').append($('<div id="l' + i + '" class="lives"/>'));

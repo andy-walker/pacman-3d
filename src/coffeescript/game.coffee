@@ -76,9 +76,10 @@ game =
 
         # ghosts
         for i in [0..3]
-            $('#game').append $('<div id="g' + i + '"/>')
-            $('#game').append $('<div id="g' + i + 'b"/>')
-            $('#game').append $('<div id="g' + i + 'c"/>')
+            $('#game').append $('<div id="g' + i + '"/>')   # normal state
+            $('#game').append $('<div id="g' + i + 'b"/>')  # frightened state
+            $('#game').append $('<div id="g' + i + 'c"/>')  # flash (white) state
+            $('#game').append $('<div id="g' + i + 'd"/>')  # dead state
 
         # life sprites
         $('#game').append $('<div id="l' + i + '" class="lives"/>') for i in [1..4]

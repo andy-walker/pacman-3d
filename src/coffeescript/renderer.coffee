@@ -18,10 +18,16 @@ class Renderer
         return
 
 
-    changeMode: (mode) ->
+    changeMode: (mode, ghost = null) ->
         
         switch true
             
+            when mode is 'd'
+                frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                $('#g' + index + 'd').css @getStyles(ghost, frameno, ghost.y)
+                $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
+                return
+
             # when changing to frightened mode, reset main ghost sprites and apply
             # styles to frightened sprites - ideally, would like to defer this to frame 
             # render, rather than doing this in-between frames
@@ -96,7 +102,7 @@ class Renderer
 
         switch direction
             
-            # lookup frame for horiztonal motion
+            # lookup frame for horizontal motion
             when 'r'
                 
                 frame = frames.h[Math.floor y][Math.floor x]
@@ -149,8 +155,14 @@ class Renderer
     getPillIndex: (x, y) -> frames.p[y][x]
 
     getStyles: (character, frameno, y = 0) ->
-      
-        style = if character is @game.pacman then styles.pm[frameno] else styles.g[frameno]
+        
+        if character is @game.pacman
+            style = styles.pm[frameno]
+        else if character.mode is 'd'
+            style = styles.g6[frameno]
+        else
+            style = styles.g[frameno]
+
         return {
             "top":                 style[0]
             "left":                style[1]
@@ -174,10 +186,15 @@ class Renderer
             selector = '#g' + index + 'c' if @mode is 'f' and @flashState is on
             selector = '#g' + index + 'b' if @mode is 'f' and @flashState is off
             selector = '#g' + index if @mode isnt 'f'
+            selector = '#g' + index + 'd' if ghost.mode is 'd'
             
             # lookup and apply style
-            frameno = @getFrame ghost.x, ghost.y, ghost.direction
-            $(selector).css @getStyles(ghost, frameno, ghost.y)
+            try 
+                frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                $(selector).css @getStyles(ghost, frameno, ghost.y)
+            catch e
+                console.log 'frameno = ' + frameno
+            
 
         # check if pacman has collided with any pills
         if pill = @game.level.isPillCollision()

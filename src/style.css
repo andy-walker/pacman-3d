@@ -41,11 +41,6 @@ body {
     height: 0;
 }
 
-.ghost0 {  }
-.ghost1 { }
-.ghost2 {  }
-.ghost3 {  }
-
 #g0 {
     position:absolute; 
     z-index:300; 
@@ -105,7 +100,7 @@ body {
 #g3b {
     position:absolute; 
     z-index:300; 
-    width: 10px;
+    width: 1px;
     height: 1px;
     background:url(images/g4.png); 
 }
@@ -137,9 +132,41 @@ body {
 #g3c {
     position:absolute; 
     z-index:300; 
-    width: 10px;
+    width: 1px;
     height: 1px;
     background:url(images/g5.png); 
+}
+
+#g0d {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g6.png);   
+}
+
+#g1d {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g6.png); 
+}
+
+#g2d {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g6.png);   
+}
+
+#g3d {
+    position:absolute; 
+    z-index:300; 
+    width: 1px;
+    height: 1px;
+    background:url(images/g6.png); 
 }
 
 #w1 {
