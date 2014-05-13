@@ -105,7 +105,6 @@ class Ghost extends Character
             if collisionObject instanceof Pacman
                 if @mode is 'f'
                     @changeMode 'd' 
-                
             else
                 @direction = @opposite @direction
 
@@ -122,6 +121,12 @@ class Ghost extends Character
 
             # evaluate best direction to move in
             @direction = @chooseDirection allowedDirections
+
+            # in 'd' mode (dead), check if we've reached the square we're
+            # targeting - if so, regenerate
+            if @mode is 'd'
+                target = @getTargetSquare()
+                @regenerate() if x is target.x and y is target.y
 
 
         # adjust position
@@ -142,6 +147,11 @@ class Ghost extends Character
 
     # return opposite direction to the one supplied
     opposite: (direction) -> {'l': 'r', 'r': 'l', 'u': 'd', 'd': 'u'}[direction]
+
+    # if dead and reached target square, reset ghost state
+    regenerate: ->
+        # todo ..
+        return
 
     setSpeed: (@speed) -> 
 

@@ -190,7 +190,7 @@
     };
 
     Ghost.prototype.move = function() {
-      var allowedDirections, collisionObject, direction, _i, _len, _ref;
+      var allowedDirections, collisionObject, direction, target, _i, _len, _ref;
       if (collisionObject = this.checkForCollisions()) {
         if (collisionObject instanceof Pacman) {
           if (this.mode === 'f') {
@@ -210,6 +210,12 @@
           }
         }
         this.direction = this.chooseDirection(allowedDirections);
+        if (this.mode === 'd') {
+          target = this.getTargetSquare();
+          if (x === target.x && y === target.y) {
+            this.regenerate();
+          }
+        }
       }
       switch (this.direction) {
         case 'l':
@@ -241,6 +247,8 @@
         'd': 'u'
       }[direction];
     };
+
+    Ghost.prototype.regenerate = function() {};
 
     Ghost.prototype.setSpeed = function(speed) {
       this.speed = speed;
