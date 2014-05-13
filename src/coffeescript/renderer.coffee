@@ -80,18 +80,20 @@ class Renderer
                 when on
                     
                     for index, ghost of @game.ghosts
-                        frameno = @getFrame ghost.x, ghost.y, ghost.direction
-                        $('#g' + index + 'c').css @getStyles(ghost, frameno, ghost.y)
-                        $('#g' + index + 'b').css(@styleReset)
+                        if ghost.mode isnt 'd'
+                            frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                            $('#g' + index + 'c').css @getStyles(ghost, frameno, ghost.y)
+                            $('#g' + index + 'b').css(@styleReset)
                     
                     timeoutFunction = -> game.renderer.flashGhosts(off)
                
                 when off
                     
                     for index, ghost of @game.ghosts
-                        frameno = @getFrame ghost.x, ghost.y, ghost.direction
-                        $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
-                        $('#g' + index + 'c').css(@styleReset)
+                        if ghost.mode isnt 'd'
+                            frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                            $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
+                            $('#g' + index + 'c').css(@styleReset)
                     
                     timeoutFunction = -> game.renderer.flashGhosts(on)
 
@@ -156,12 +158,10 @@ class Renderer
 
     getStyles: (character, frameno, y = 0) ->
         
-        if character is @game.pacman
-            style = styles.pm[frameno]
-        else if character.mode is 'd'
-            style = styles.g6[frameno]
-        else
-            style = styles.g[frameno]
+        switch true
+            when character is @game.pacman then style = styles.pm[frameno]
+            when character.mode is 'd' then style = styles.g6[frameno]
+            else style = styles.g[frameno]
 
         return {
             "top":                 style[0]

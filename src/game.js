@@ -193,7 +193,9 @@
       var allowedDirections, collisionObject, direction, _i, _len, _ref;
       if (collisionObject = this.checkForCollisions()) {
         if (collisionObject instanceof Pacman) {
-
+          if (this.mode === 'f') {
+            this.changeMode('d');
+          }
         } else {
           this.direction = this.opposite(this.direction);
         }
@@ -520,8 +522,8 @@
       switch (true) {
         case mode === 'd':
           frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-          $('#g' + index + 'd').css(this.getStyles(ghost, frameno, ghost.y));
-          $('#g' + index + 'b, #g' + index + 'c').css(this.styleReset);
+          $('#g' + ghost.index + 'd').css(this.getStyles(ghost, frameno, ghost.y));
+          $('#g' + ghost.index + 'b, #g' + ghost.index + 'c').css(this.styleReset);
           return;
         case mode === 'f':
           _ref = this.game.ghosts;
@@ -564,9 +566,11 @@
             _ref = this.game.ghosts;
             for (index in _ref) {
               ghost = _ref[index];
-              frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-              $('#g' + index + 'c').css(this.getStyles(ghost, frameno, ghost.y));
-              $('#g' + index + 'b').css(this.styleReset);
+              if (ghost.mode !== 'd') {
+                frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+                $('#g' + index + 'c').css(this.getStyles(ghost, frameno, ghost.y));
+                $('#g' + index + 'b').css(this.styleReset);
+              }
             }
             timeoutFunction = function() {
               return game.renderer.flashGhosts(false);
@@ -576,9 +580,11 @@
             _ref1 = this.game.ghosts;
             for (index in _ref1) {
               ghost = _ref1[index];
-              frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-              $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
-              $('#g' + index + 'c').css(this.styleReset);
+              if (ghost.mode !== 'd') {
+                frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+                $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
+                $('#g' + index + 'c').css(this.styleReset);
+              }
             }
             timeoutFunction = function() {
               return game.renderer.flashGhosts(true);
@@ -655,12 +661,15 @@
       if (y == null) {
         y = 0;
       }
-      if (character === this.game.pacman) {
-        style = styles.pm[frameno];
-      } else if (character.mode === 'd') {
-        style = styles.g6[frameno];
-      } else {
-        style = styles.g[frameno];
+      switch (true) {
+        case character === this.game.pacman:
+          style = styles.pm[frameno];
+          break;
+        case character.mode === 'd':
+          style = styles.g6[frameno];
+          break;
+        default:
+          style = styles.g[frameno];
       }
       return {
         "top": style[0],
