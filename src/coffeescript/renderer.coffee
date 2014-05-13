@@ -22,9 +22,10 @@ class Renderer
         switch true
             
             when mode is 'd'
+                
                 frameno = @getFrame ghost.x, ghost.y, ghost.direction
-                $('#g' + index + 'd').css @getStyles(ghost, frameno, ghost.y)
-                $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
+                $('#g' + ghost.index + 'd').css @getStyles(ghost, frameno, ghost.y)
+                $('#g' + ghost.index + 'b, #g' + ghost.index + 'c').css(@styleReset)      
                 return
 
             # when changing to frightened mode, reset main ghost sprites and apply

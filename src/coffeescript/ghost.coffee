@@ -103,8 +103,8 @@ class Ghost extends Character
         if collisionObject = @checkForCollisions()
             
             if collisionObject instanceof Pacman
-               # if @mode is 'f'
-               #     @changeMode 'd' 
+                if @mode is 'f'
+                    @changeMode 'd' 
                 
             else
                 @direction = @opposite @direction
