@@ -161,7 +161,7 @@
         case 'd':
           return target = {
             x: 13,
-            y: 12
+            y: 11
           };
       }
     };
@@ -212,7 +212,7 @@
         this.direction = this.chooseDirection(allowedDirections);
         if (this.mode === 'd') {
           target = this.getTargetSquare();
-          if (x === target.x && y === target.y) {
+          if (this.x === target.x && this.y === target.y) {
             this.regenerate();
           }
         }
@@ -248,7 +248,10 @@
       }[direction];
     };
 
-    Ghost.prototype.regenerate = function() {};
+    Ghost.prototype.regenerate = function() {
+      this.changeMode(this.game.renderer.mode);
+      return this.game.renderer.changeMode(this.mode, this);
+    };
 
     Ghost.prototype.setSpeed = function(speed) {
       this.speed = speed;
@@ -518,6 +521,8 @@
 
     Renderer.prototype.flashState = false;
 
+    Renderer.prototype.mode = 'n';
+
     function Renderer(game) {
       this.game = game;
     }
@@ -533,6 +538,16 @@
           $('#g' + ghost.index + 'd').css(this.getStyles(ghost, frameno, ghost.y));
           $('#g' + ghost.index + 'b, #g' + ghost.index + 'c').css(this.styleReset);
           return;
+        case mode === 'c' && ghost !== null:
+          frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+          $('#g' + ghost.index + 'd').css(this.styleReset);
+          $('#g' + ghost.index).css(this.getStyles(ghost, frameno, ghost.y));
+          break;
+        case mode === 'f' && ghost !== null:
+          frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+          $('#g' + ghost.index + 'd').css(this.styleReset);
+          $('#g' + ghost.index + (this.flashState === true ? 'c' : 'b')).css(this.getStyles(ghost, frameno, ghost.y));
+          break;
         case mode === 'f':
           _ref = this.game.ghosts;
           for (index in _ref) {
@@ -555,9 +570,11 @@
           _ref1 = this.game.ghosts;
           for (index in _ref1) {
             ghost = _ref1[index];
-            frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
-            $('#g' + index).css(this.getStyles(ghost, frameno, ghost.y));
-            $('#g' + index + 'b, #g' + index + 'c').css(this.styleReset);
+            if (ghost.mode !== 'd') {
+              frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+              $('#g' + index).css(this.getStyles(ghost, frameno, ghost.y));
+              $('#g' + index + 'b, #g' + index + 'c').css(this.styleReset);
+            }
           }
           this.flashing = false;
           this.flashState = false;
@@ -769,7 +786,9 @@
       _ref = this.game.ghosts;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         ghost = _ref[_i];
-        ghost.changeMode(mode);
+        if (ghost.mode !== 'd') {
+          ghost.changeMode(mode);
+        }
       }
       this.game.renderer.changeMode(mode);
       if (mode === 'f') {

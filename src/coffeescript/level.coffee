@@ -8,8 +8,12 @@ class Level
     constructor: (@game) -> @initialize()
 
     changeMode: (mode) -> 
+        
+        # change mode for each ghost, except when ghost in 'd' mode
+        # (in 'd' mode, ghost remains in that mode until it reaches target square)
+        for ghost in @game.ghosts
+            ghost.changeMode mode unless ghost.mode is 'd'
 
-        ghost.changeMode mode for ghost in @game.ghosts
         @game.renderer.changeMode mode
 
         if mode is 'f'

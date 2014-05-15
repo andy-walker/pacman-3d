@@ -31,7 +31,7 @@ class Ghost extends Character
         # if there's only one way we can go, go that way
         return allowedDirections[0] if allowedDirections.length is 1
 
-        # when in frigtened mode, choose a random direction 
+        # when in frightened mode, choose a random direction 
         # from the directions we're allowed to go in
         return _.shuffle(allowedDirections)[0] if @mode is 'f'
 
@@ -72,7 +72,7 @@ class Ghost extends Character
 
             when 'd' then target = 
                 x: 13
-                y: 12
+                y: 11
 
 
     checkForCollisions: -> 
@@ -126,7 +126,7 @@ class Ghost extends Character
             # targeting - if so, regenerate
             if @mode is 'd'
                 target = @getTargetSquare()
-                @regenerate() if x is target.x and y is target.y
+                @regenerate() if @x is target.x and @y is target.y
 
 
         # adjust position
@@ -150,8 +150,10 @@ class Ghost extends Character
 
     # if dead and reached target square, reset ghost state
     regenerate: ->
-        # todo ..
-        return
+
+        @changeMode @game.renderer.mode
+        @game.renderer.changeMode @mode, @
+
 
     setSpeed: (@speed) -> 
 

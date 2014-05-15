@@ -14,6 +14,8 @@ class Renderer
     flashing:   no
     flashState: off
 
+    mode: 'n'
+
     constructor: (@game) ->
 
 
@@ -25,8 +27,26 @@ class Renderer
                 
                 frameno = @getFrame ghost.x, ghost.y, ghost.direction
                 $('#g' + ghost.index + 'd').css @getStyles(ghost, frameno, ghost.y)
-                $('#g' + ghost.index + 'b, #g' + ghost.index + 'c').css(@styleReset)      
+                $('#g' + ghost.index + 'b, #g' + ghost.index + 'c').css @styleReset      
                 return
+
+            # ghost returning from 'dead' to 'chase' mode
+            when mode is 'c' and ghost isnt null
+
+                frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                $('#g' + ghost.index + 'd').css @styleReset
+                $('#g' + ghost.index).css( 
+                    @getStyles ghost, frameno, ghost.y
+                )
+
+            # ghost returning from 'dead' to 'frightened' mode
+            when mode is 'f' and ghost isnt null
+                
+                frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                $('#g' + ghost.index + 'd').css @styleReset
+                $('#g' + ghost.index + if @flashState is on then 'c' else 'b').css( 
+                    @getStyles ghost, frameno, ghost.y
+                )
 
             # when changing to frightened mode, reset main ghost sprites and apply
             # styles to frightened sprites - ideally, would like to defer this to frame 
@@ -34,6 +54,7 @@ class Renderer
             when mode is 'f'
 
                 for index, ghost of @game.ghosts
+
                     frameno = @getFrame ghost.x, ghost.y, ghost.direction
                     $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
                     $('#g' + index).css(@styleReset)
@@ -61,9 +82,10 @@ class Renderer
             when mode is 'c' and @mode is 'f'
                 
                 for index, ghost of @game.ghosts
-                    frameno = @getFrame ghost.x, ghost.y, ghost.direction
-                    $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
-                    $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
+                    unless ghost.mode is 'd'
+                        frameno = @getFrame ghost.x, ghost.y, ghost.direction
+                        $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
+                        $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
 
                 @flashing   = no
                 @flashState = off
