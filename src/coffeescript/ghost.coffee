@@ -111,7 +111,8 @@ class Ghost extends Character
             
             if collisionObject instanceof Pacman
                 if @mode is 'f'
-                    @changeMode 'd' 
+                    @changeMode 'd'
+                    @game.level.incrementScoreBy 200 # todo: increase points more ghosts eaten
             else
                 @direction = @opposite @direction
 

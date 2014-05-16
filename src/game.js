@@ -201,6 +201,7 @@
         if (collisionObject instanceof Pacman) {
           if (this.mode === 'f') {
             this.changeMode('d');
+            this.game.level.incrementScoreBy(200);
           }
         } else {
           this.direction = this.opposite(this.direction);
@@ -752,7 +753,7 @@
     };
 
     Renderer.prototype.resetLevel = function() {
-      var i, _i, _j, _k, _l, _results;
+      var i, _i, _j, _k, _l;
       for (i = _i = 1; _i <= 240; i = ++_i) {
         $('#p' + i).show();
       }
@@ -762,11 +763,15 @@
       for (i = _k = 1; _k <= 4; i = ++_k) {
         $('#energizer' + i).show();
       }
-      _results = [];
       for (i = _l = 0; _l <= 3; i = ++_l) {
-        _results.push($('#g' + i + 'b, #g' + i + 'c, #g' + i + 'd').css(this.styleReset));
+        $('#g' + i + 'b, #g' + i + 'c, #g' + i + 'd').css(this.styleReset);
       }
-      return _results;
+      return this.updateScore();
+    };
+
+    Renderer.prototype.updateScore = function() {
+      $('#score span').html(game.score.toString().zeroPad(4));
+      return $('#hiscore span').html(game.hiscore.toString().zeroPad(4));
     };
 
     return Renderer;
@@ -814,10 +819,19 @@
       });
     };
 
+    Level.prototype.incrementScoreBy = function(points) {
+      this.game.score += points;
+      if (game.score > game.hiscore) {
+        this.game.hiscore = game.score;
+      }
+      return this.game.renderer.updateScore();
+    };
+
     Level.prototype.initialize = function() {
       this.pills = 240;
       this.maze = this.getMaze();
       this.game.pacman = new Pacman(this.game);
+      this.game.score = 0;
       this.game.ghosts = [new Blinky(this.game, 0), new Inky(this.game, 1), new Pinky(this.game, 2), new Clyde(this.game, 3)];
       this.game.renderer.resetLevel();
     };
@@ -839,11 +853,13 @@
           this.pills--;
           this.maze[y][x]--;
           this.pillCollisionAt = [x, y];
+          this.incrementScoreBy(10);
           break;
         case 5:
           this.pills--;
           this.maze[y][x] -= 2;
           this.pillCollisionAt = [x, y];
+          this.incrementScoreBy(50);
           this.changeMode('f');
       }
     };
@@ -856,6 +872,15 @@
     return Level;
 
   })();
+
+  String.prototype.zeroPad = function(length) {
+    var string;
+    string = this;
+    while (string.length < length) {
+      string = '0' + string;
+    }
+    return string;
+  };
 
   $(document).ready(function() {
     return game.init();
@@ -886,6 +911,8 @@
 
   game = {
     lives: 3,
+    score: 0,
+    hiscore: 0,
     pacman: null,
     ghosts: [],
     input: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],

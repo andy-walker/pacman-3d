@@ -26,6 +26,15 @@ class Level
     # but we need a fresh copy on each new level
     getMaze: -> maze.map((arr) -> arr.slice())
 
+    # call this to add points to current score - also deals with
+    # incrementing hiscore where necessary and updating screen
+    incrementScoreBy: (points) ->
+
+        @game.score += points
+        @game.hiscore = game.score if game.score > game.hiscore
+        @game.renderer.updateScore()
+
+    
     initialize: ->
         
         # initialize pills, use local copy of maze array to 
@@ -35,6 +44,7 @@ class Level
 
         # instance pacman class
         @game.pacman = new Pacman @game
+        @game.score  = 0
 
         # instance ghost class x 4
         @game.ghosts = [
@@ -70,11 +80,13 @@ class Level
                 @pills--
                 @maze[y][x]--
                 @pillCollisionAt = [x, y]
+                @incrementScoreBy 10
 
             when 5
                 @pills--
                 @maze[y][x] -= 2
                 @pillCollisionAt = [x, y]
+                @incrementScoreBy 50
 
                 # set ghost mode to 'frightened'
                 @changeMode 'f'

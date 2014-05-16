@@ -249,3 +249,11 @@ class Renderer
         for i in [0..3]
             $('#g' + i + 'b, #g' + i + 'c, #g' + i + 'd').css(@styleReset)
 
+        @updateScore()
+
+
+    updateScore: ->
+
+        $('#score span').html game.score.toString().zeroPad 4
+        $('#hiscore span').html game.hiscore.toString().zeroPad 4
+

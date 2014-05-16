@@ -1,5 +1,13 @@
+# string prototype for zero padding score
+String::zeroPad = (length) ->
+    string = @
+    string = '0' + string while string.length < length
+    string
+ 
+# init on document ready
 $(document).ready -> game.init()
 
+# capture keypresses
 $(document).keydown (e) ->
     switch e.which
         when 37, 38, 39, 40
@@ -12,10 +20,13 @@ $(document).keyup (e) ->
             game.keyboardInput e.which, 0
             e.preventDefault()
 
-
+# why is this not a class like everything else?
 game = 
     
-    lives: 3
+    lives:   3
+    score:   0
+    hiscore: 0
+
     pacman: null
     ghosts: []
     
@@ -120,10 +131,7 @@ game =
         game.renderer.render()
         game.pacman.move()
         game.ghosts[i].move() for i in [0..3]
-
-        #if (!(--@level.pills))
-        #   @level.up()
         setTimeout game.loop, 35 
-        # @loop()
+
         return
 
