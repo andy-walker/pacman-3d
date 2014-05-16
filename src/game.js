@@ -168,10 +168,16 @@
 
     Ghost.prototype.checkForCollisions = function() {
       var ghost, index, offsetX, offsetY, pacman, _ref;
+      if (this.mode === 'd') {
+        return false;
+      }
       _ref = this.game.ghosts;
       for (index in _ref) {
         ghost = _ref[index];
         if (index === this.index.toString()) {
+          continue;
+        }
+        if (ghost.mode === 'd') {
           continue;
         }
         offsetX = ghost.x - this.x;

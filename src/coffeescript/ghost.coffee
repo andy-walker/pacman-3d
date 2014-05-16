@@ -77,10 +77,17 @@ class Ghost extends Character
 
     checkForCollisions: -> 
         
+        # if dead, ie: heading back to ghost house to regenerate, disable collisions
+        return no if @mode is 'd'
+
         # check for collisions with other ghosts
         for index, ghost of @game.ghosts
             
+            # don't try to detect collisions with self
             continue if index == @index.toString()
+
+            # disable collisions with other 'dead' ghosts
+            continue if ghost.mode is 'd'
             
             offsetX = ghost.x - @x
             offsetY = ghost.y - @y
