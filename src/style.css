@@ -37,12 +37,12 @@ header {
 
 #score {
     left:14px;
-    padding-top:7px;
+    top:7px;
     text-align:left;
 }
 
 #hiscore {
-    padding-top:7px;
+    top:7px;
     text-align:right;
     right:14px;
 }
