@@ -32,21 +32,13 @@ header {
     height:45px;
     border-bottom:1px solid rgba(255, 255, 255, 0.26);
     font:17pt Orbitron;
-    color:#7fb9b9;
-}
-
-#logo {
-    top:10px;
-    left:10px;
-    z-index:1;
-    width:247px;
-    height:64px;
-    background:url(images/logo.png);
+    color:#83cece;
 }
 
 #score {
+    left:14px;
     padding-top:7px;
-    text-align:center;
+    text-align:left;
 }
 
 #hiscore {
