@@ -899,6 +899,10 @@
     initDOM: function() {
       var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
       $('body').append($("<div id='game'/>"));
+      $('#game').append($('<header/>'));
+      $('header').append($("<div id='logo'/>"));
+      $('header').append($("<div id='hiscore'>HI-SCORE <span>0000</span></div>"));
+      $('header').append($("<p id='score'>SCORE <span>0000</span></p>"));
       for (i = _i = 1; _i <= 30; i = ++_i) {
         $('#game').append($("<div id='w" + i + "'/>"));
       }

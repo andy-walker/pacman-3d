@@ -44,6 +44,13 @@ game =
         # add main game div
         $('body').append $("<div id='game'/>")
 
+        # header / score area
+        $('#game').append $('<header/>');
+
+        $('header').append $("<div id='logo'/>")
+        $('header').append $("<div id='hiscore'>HI-SCORE <span>0000</span></div>")
+        $('header').append $("<p id='score'>SCORE <span>0000</span></p>")
+        
         # environment walls
         $('#game').append $("<div id='w" + i + "'/>") for i in [1..30]
 

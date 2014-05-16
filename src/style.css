@@ -1,5 +1,10 @@
 /* Temporary styles for Pacman 3D */
 
+@font-face {
+    font-family: Orbitron;
+    src: url(fonts/Orbitron-Regular.ttf);
+}
+
 * { 
     margin:0; 
     padding:0;
@@ -20,6 +25,34 @@ body {
     -webkit-transform:translate(-50%, -50%);
     -moz-transform:translate(-50%, -50%);
     -ms-transform:translate(-50%, -50%);
+}
+
+header {
+    background:rgba(0, 0, 0, 0.26);
+    height:45px;
+    border-bottom:1px solid rgba(255, 255, 255, 0.26);
+    font:17pt Orbitron;
+    color:#7fb9b9;
+}
+
+#logo {
+    top:10px;
+    left:10px;
+    z-index:1;
+    width:247px;
+    height:64px;
+    background:url(images/logo.png);
+}
+
+#score {
+    padding-top:7px;
+    text-align:center;
+}
+
+#hiscore {
+    padding-top:7px;
+    text-align:right;
+    right:14px;
 }
 
 #game div { opacity:1; position:absolute; }
