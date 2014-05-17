@@ -4,6 +4,7 @@ class Level
     pills: 240
     energizerMode: off
     pillCollisionAt: []
+    killBonus: 200
 
     constructor: (@game) -> @initialize()
 
@@ -17,6 +18,8 @@ class Level
         @game.renderer.changeMode mode
 
         if mode is 'f'
+            # kill bonus begins at 200 and doubles for each subsequent ghost
+            @killBonus = 200
             setTimeout((-> game.level.changeMode 'c'), 6000)
          
 
