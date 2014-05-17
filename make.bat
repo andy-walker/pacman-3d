@@ -29,5 +29,4 @@
 :: build energizer pill sprite
 :: build\spritekit.py src\exported-images\energizer.1.png src\images\e.png src\gen.css "#energizer"
 
-
-coffee -c -j src/game.js src/coffeescript/character.coffee src/coffeescript/ghost.coffee src/coffeescript/blinky.coffee src/coffeescript/inky.coffee src/coffeescript/pinky.coffee src/coffeescript/clyde.coffee src/coffeescript/pacman.coffee src/coffeescript/renderer.coffee src/coffeescript/level.coffee src/coffeescript/game.coffee src/coffeescript/data.coffee 
+cake compile
