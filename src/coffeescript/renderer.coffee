@@ -10,9 +10,10 @@ class Renderer
         top:    0
         left:   0
 
-    flashSpeed: 500
-    flashing:   no
-    flashState: off
+    flashSpeed:   500
+    flashing:     no
+    flashState:   off
+    flashTimeout: null
 
     mode: 'n'
 
@@ -65,7 +66,11 @@ class Renderer
                 flashTime  = ((numFlashes * 2) - 1) * Math.round @flashSpeed / 2
                 waitTime   = frightTime - flashTime
 
-                setTimeout(
+                # clear any previously scheduled flashes (if another energizer is eaten
+                # before frightened mode ends)
+                clearTimeout @flashTimeout if @flashTimeout
+                
+                @flashTimeout = setTimeout(
                     ( 
                         ->
                             game.renderer.flashing = yes

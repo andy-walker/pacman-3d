@@ -5,6 +5,7 @@ class Level
     energizerMode: off
     pillCollisionAt: []
     killBonus: 200
+    modeChangeTimeout: null
 
     constructor: (@game) -> @initialize()
 
@@ -20,7 +21,8 @@ class Level
         if mode is 'f'
             # kill bonus begins at 200 and doubles for each subsequent ghost
             @killBonus = 200
-            setTimeout((-> game.level.changeMode 'c'), 6000)
+            clearTimeout @modeChangeTimeout if @modeChangeTimeout
+            @modeChangeTimeout = setTimeout((-> game.level.changeMode 'c'), 6000)
          
 
     clearPillCollisions: -> @pillCollisionAt = []
@@ -30,7 +32,7 @@ class Level
     getMaze: -> maze.map((arr) -> arr.slice())
 
     # call this to add points to current score - also deals with
-    # incrementing hiscore where necessary and updating screen
+    # incrementing hi-score where necessary and updating screen
     incrementScoreBy: (points) ->
 
         @game.score += points
