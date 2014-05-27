@@ -58,7 +58,7 @@ class Renderer
 
                     frameno = @getFrame ghost.x, ghost.y, ghost.direction
                     $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
-                    $('#g' + index + ', #g' + index + 'c').css(@styleReset)
+                    $('#g' + index + ', #g' + index + 'c').css @styleReset
 
                 # calculate time to wait before beginning flash sequence
                 frightTime = levelSpec[@game.level.level].frightTime * 1000
@@ -90,7 +90,7 @@ class Renderer
                     unless ghost.mode is 'd'
                         frameno = @getFrame ghost.x, ghost.y, ghost.direction
                         $('#g' + index).css @getStyles(ghost, frameno, ghost.y)
-                        $('#g' + index + 'b, #g' + index + 'c').css(@styleReset)
+                        $('#g' + index + 'b, #g' + index + 'c').css @styleReset
 
                 @flashing   = no
                 @flashState = off
@@ -110,9 +110,9 @@ class Renderer
                         if ghost.mode isnt 'd'
                             frameno = @getFrame ghost.x, ghost.y, ghost.direction
                             $('#g' + index + 'c').css @getStyles(ghost, frameno, ghost.y)
-                            $('#g' + index + 'b').css(@styleReset)
+                            $('#g' + index + 'b').css @styleReset
                     
-                    timeoutFunction = -> game.renderer.flashGhosts(off)
+                    timeoutFunction = -> game.renderer.flashGhosts off
                
                 when off
                     
@@ -120,9 +120,9 @@ class Renderer
                         if ghost.mode isnt 'd'
                             frameno = @getFrame ghost.x, ghost.y, ghost.direction
                             $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
-                            $('#g' + index + 'c').css(@styleReset)
+                            $('#g' + index + 'c').css @styleReset
                     
-                    timeoutFunction = -> game.renderer.flashGhosts(on)
+                    timeoutFunction = -> game.renderer.flashGhosts on
 
             @flashTimeout = setTimeout timeoutFunction, Math.round @flashSpeed / 2                  
     
@@ -217,7 +217,7 @@ class Renderer
                 { top: styles.top - 50, opacity: 0},
                 { duration: 800, complete: -> $(this).remove() }
             )
-            
+
 
     render: ->
 
