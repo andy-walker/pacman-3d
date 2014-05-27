@@ -56,8 +56,18 @@ header {
 .pr { position:absolute; z-index:1; }
 .pm { position:absolute; z-index:300; display:none;}
 
+.bonus { 
+    position:absolute;
+    font-size:11px; 
+    color:white; 
+    font-weight:bold;
+    z-index:200;
+    text-align:center;
+}
+
 .energizer  { position:absolute; }
 .frightened { background-image:url(images/g4.png); }
+
 
 #pacman { 
     position:absolute; 

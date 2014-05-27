@@ -202,6 +202,7 @@
           if (this.mode === 'f') {
             this.changeMode('d');
             this.game.level.incrementScoreBy(this.game.level.killBonus);
+            this.game.renderer.ghostKilled(this);
             this.game.level.killBonus *= 2;
           }
         } else {
@@ -717,6 +718,27 @@
         "background-position": style[4] + "px " + style[5] + "px",
         "z-index": y ? frames.z[Math.round(y)] : 300
       };
+    };
+
+    Renderer.prototype.ghostKilled = function(ghost) {
+      var bonusID, frameno, styles;
+      frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
+      styles = this.getStyles(ghost, frameno, ghost.y);
+      bonusID = "bonus" + _.random(0, 9999);
+      $('#game').append('<div id="' + bonusID + '" />');
+      return $('#' + bonusID).css({
+        top: styles.top - 10,
+        left: styles.left,
+        width: styles.width
+      }).html(this.game.level.killBonus).addClass('bonus').animate({
+        top: styles.top - 50,
+        opacity: 0
+      }, {
+        duration: 800,
+        complete: function() {
+          return $(this).remove();
+        }
+      });
     };
 
     Renderer.prototype.render = function() {

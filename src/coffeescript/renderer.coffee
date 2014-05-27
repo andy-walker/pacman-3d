@@ -200,6 +200,25 @@ class Renderer
         }
 
 
+    # when killed, display floating bonus score above ghost's head 
+    ghostKilled: (ghost) ->
+
+        frameno = @getFrame ghost.x, ghost.y, ghost.direction
+        styles  = @getStyles ghost, frameno, ghost.y
+        bonusID = "bonus" + _.random 0, 9999
+
+        $('#game').append '<div id="' + bonusID + '" />' 
+
+        $('#' + bonusID)
+            .css({top: styles.top - 10, left: styles.left, width: styles.width})
+            .html(@game.level.killBonus)
+            .addClass('bonus')
+            .animate(
+                { top: styles.top - 50, opacity: 0},
+                { duration: 800, complete: -> $(this).remove() }
+            )
+            
+
     render: ->
 
         # lookup pacman frame number from current location then get and apply styles

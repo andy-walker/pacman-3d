@@ -113,6 +113,7 @@ class Ghost extends Character
                 if @mode is 'f'
                     @changeMode 'd'
                     @game.level.incrementScoreBy @game.level.killBonus
+                    @game.renderer.ghostKilled this
                     # kill bonus doubles each time a ghost is eaten
                     @game.level.killBonus *= 2
             
