@@ -564,7 +564,7 @@
             ghost = _ref[index];
             frameno = this.getFrame(ghost.x, ghost.y, ghost.direction);
             $('#g' + index + 'b').css(this.getStyles(ghost, frameno, ghost.y));
-            $('#g' + index).css(this.styleReset);
+            $('#g' + index + ', #g' + index + 'c').css(this.styleReset);
           }
           frightTime = levelSpec[this.game.level.level].frightTime * 1000;
           numFlashes = levelSpec[this.game.level.level].numFlashes;
@@ -628,7 +628,7 @@
               return game.renderer.flashGhosts(true);
             };
         }
-        return setTimeout(timeoutFunction, Math.round(this.flashSpeed / 2));
+        return this.flashTimeout = setTimeout(timeoutFunction, Math.round(this.flashSpeed / 2));
       }
     };
 

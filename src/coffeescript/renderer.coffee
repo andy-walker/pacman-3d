@@ -58,7 +58,7 @@ class Renderer
 
                     frameno = @getFrame ghost.x, ghost.y, ghost.direction
                     $('#g' + index + 'b').css @getStyles(ghost, frameno, ghost.y)
-                    $('#g' + index).css(@styleReset)
+                    $('#g' + index + ', #g' + index + 'c').css(@styleReset)
 
                 # calculate time to wait before beginning flash sequence
                 frightTime = levelSpec[@game.level.level].frightTime * 1000
@@ -74,7 +74,7 @@ class Renderer
                     ( 
                         ->
                             game.renderer.flashing = yes
-                            game.renderer.flashGhosts(on)
+                            game.renderer.flashGhosts on
 
                     ),
                     if waitTime > 0 then waitTime else 0
@@ -124,9 +124,9 @@ class Renderer
                     
                     timeoutFunction = -> game.renderer.flashGhosts(on)
 
-            setTimeout timeoutFunction, Math.round @flashSpeed / 2                  
-
+            @flashTimeout = setTimeout timeoutFunction, Math.round @flashSpeed / 2                  
     
+
     getFrame: (x, y, direction) ->
 
         switch direction
