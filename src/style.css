@@ -32,17 +32,18 @@ header {
     height:45px;
     border-bottom:1px solid rgba(255, 255, 255, 0.26);
     font:17pt Orbitron;
+    line-height:17pt;
     color:#83cece;
 }
 
 #score {
     left:14px;
-    top:13px;
+    top:12px;
     text-align:left;
 }
 
 #hiscore {
-    top:13px;
+    top:12px;
     text-align:right;
     right:14px;
 }
