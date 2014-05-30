@@ -42,77 +42,11 @@ game =
 
     init: ->
         
-        @initDOM()
-        @initRenderer()
-        @initLevel()
+        @renderer = new Renderer @
+        @level    = new Level @
         @loop()
 
         return
-
-    # initialize dom elements
-    initDOM: ->
-
-        # add main game div
-        $('body').append $("<div id='game'/>")
-
-        # header / score area
-        $('#game').append $('<header/>');
-        $('header').append $("<div id='score'>SCORE <span>0000</span></div>")
-        $('header').append $("<div id='hiscore'>HI-SCORE <span>0000</span></div>")
-        
-        # environment walls
-        $('#game').append $("<div id='w" + i + "'/>") for i in [1..30]
-
-        # pills
-        y   = 0
-        top = 0
-        
-        for i in [1..240]
-            
-            $('#game').append $("<div id='p" + i + "' class='p'/>")
-            
-            # set z-index on pills by determining which row they're on
-            currentTop = parseInt $('#p' + i).css 'top'
-
-            if currentTop > top
-                top = currentTop
-                y++
-
-            $('#p' + i).css 'z-index', (frames.z[y] - 1)
-
-        # pill reflections
-        $('#game').append $("<div id='pr" + i + "' class='pr'/>") for i in [1..240]
-
-        # energizer pills
-        $('#game').append $("<div id='energizer" + i + "' class='energizer'/>") for i in [1..4]
-
-        # pacman 
-        $('#game').append $('<div id="pacman"/>')
-
-        # ghosts
-        for i in [0..3]
-            $('#game').append $('<div id="g' + i + '"/>')   # normal state
-            $('#game').append $('<div id="g' + i + 'b"/>')  # frightened state
-            $('#game').append $('<div id="g' + i + 'c"/>')  # flash (white) state
-            $('#game').append $('<div id="g' + i + 'd"/>')  # dead state
-
-        # life sprites
-        $('#game').append $('<div id="l' + i + '" class="lives"/>') for i in [1..4]
-
-        return
-
-    # initialize level
-    initLevel: ->
-
-        @level = new Level @
-        return
-
-    # initialize renderer
-    initRenderer: ->
-
-        @renderer = new Renderer @
-        return
-
 
     # keyboard input callback
     keyboardInput: (key, down) ->

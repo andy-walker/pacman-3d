@@ -535,7 +535,43 @@
     Renderer.prototype.mode = 'n';
 
     function Renderer(game) {
+      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
       this.game = game;
+      $('body').append($("<div id='game'/>"));
+      $('#game').append($('<header/>'));
+      $('header').append($("<div id='score'>SCORE <span>0000</span></div>"));
+      $('header').append($("<div id='hiscore'>HI-SCORE <span>0000</span></div>"));
+      for (i = _i = 1; _i <= 30; i = ++_i) {
+        $('#game').append($("<div id='w" + i + "'/>"));
+      }
+      y = 0;
+      top = 0;
+      for (i = _j = 1; _j <= 240; i = ++_j) {
+        $('#game').append($("<div id='p" + i + "' class='p'/>"));
+        currentTop = parseInt($('#p' + i).css('top'));
+        if (currentTop > top) {
+          top = currentTop;
+          y++;
+        }
+        $('#p' + i).css('z-index', frames.z[y] - 1);
+      }
+      for (i = _k = 1; _k <= 240; i = ++_k) {
+        $('#game').append($("<div id='pr" + i + "' class='pr'/>"));
+      }
+      for (i = _l = 1; _l <= 4; i = ++_l) {
+        $('#game').append($("<div id='energizer" + i + "' class='energizer'/>"));
+      }
+      $('#game').append($('<div id="pacman"/>'));
+      for (i = _m = 0; _m <= 3; i = ++_m) {
+        $('#game').append($('<div id="g' + i + '"/>'));
+        $('#game').append($('<div id="g' + i + 'b"/>'));
+        $('#game').append($('<div id="g' + i + 'c"/>'));
+        $('#game').append($('<div id="g' + i + 'd"/>'));
+      }
+      for (i = _n = 1; _n <= 4; i = ++_n) {
+        $('#game').append($('<div id="l' + i + '" class="lives"/>'));
+      }
+      return;
     }
 
     Renderer.prototype.changeMode = function(mode, ghost) {
@@ -954,53 +990,9 @@
     input: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
     counter: 1,
     init: function() {
-      this.initDOM();
-      this.initRenderer();
-      this.initLevel();
-      this.loop();
-    },
-    initDOM: function() {
-      var currentTop, i, top, y, _i, _j, _k, _l, _m, _n;
-      $('body').append($("<div id='game'/>"));
-      $('#game').append($('<header/>'));
-      $('header').append($("<div id='score'>SCORE <span>0000</span></div>"));
-      $('header').append($("<div id='hiscore'>HI-SCORE <span>0000</span></div>"));
-      for (i = _i = 1; _i <= 30; i = ++_i) {
-        $('#game').append($("<div id='w" + i + "'/>"));
-      }
-      y = 0;
-      top = 0;
-      for (i = _j = 1; _j <= 240; i = ++_j) {
-        $('#game').append($("<div id='p" + i + "' class='p'/>"));
-        currentTop = parseInt($('#p' + i).css('top'));
-        if (currentTop > top) {
-          top = currentTop;
-          y++;
-        }
-        $('#p' + i).css('z-index', frames.z[y] - 1);
-      }
-      for (i = _k = 1; _k <= 240; i = ++_k) {
-        $('#game').append($("<div id='pr" + i + "' class='pr'/>"));
-      }
-      for (i = _l = 1; _l <= 4; i = ++_l) {
-        $('#game').append($("<div id='energizer" + i + "' class='energizer'/>"));
-      }
-      $('#game').append($('<div id="pacman"/>'));
-      for (i = _m = 0; _m <= 3; i = ++_m) {
-        $('#game').append($('<div id="g' + i + '"/>'));
-        $('#game').append($('<div id="g' + i + 'b"/>'));
-        $('#game').append($('<div id="g' + i + 'c"/>'));
-        $('#game').append($('<div id="g' + i + 'd"/>'));
-      }
-      for (i = _n = 1; _n <= 4; i = ++_n) {
-        $('#game').append($('<div id="l' + i + '" class="lives"/>'));
-      }
-    },
-    initLevel: function() {
-      this.level = new Level(this);
-    },
-    initRenderer: function() {
       this.renderer = new Renderer(this);
+      this.level = new Level(this);
+      this.loop();
     },
     keyboardInput: function(key, down) {
       switch (true) {
